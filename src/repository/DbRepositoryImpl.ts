@@ -25,7 +25,7 @@ export default class DbRepositoryImpl implements IDbRepository {
         const database = await this.getDatabase()
         let objFound = database.findIndex((obj:any) => obj.id === id )
 
-        return (objFound < 0) ? this.createError(404, 'Object not found') : database[objFound]
+        return (objFound < 0) ? false : database[objFound]
     }
 
     async save(item:Object): Promise<boolean> {
@@ -36,21 +36,13 @@ export default class DbRepositoryImpl implements IDbRepository {
         return (checkSave) ? checkSave : false
     }
 
-    async edit(id:string, data:any): Promise<Object> {
+    async edit(id:string, item:any): Promise<Object> {
         let database = await this.getDatabase()  
         let objIndex = await this.findObjectIndex(id)
-        let {nombre, descripcion, codigo, foto, precio, stock} = data
+        
         if(!objIndex) throw Error
         
-        let item = database[objIndex]
-        item.nombre = nombre || item.nombre
-        item.descripcion = descripcion || item.descripcion
-        item.codigo = codigo || item.codigo
-        item.foto = foto || item.foto
-        item.precio = parseInt(precio) || item.precio
-        item.stock = parseInt(stock) || item.stock
-        item.id = id
-
+        database[objIndex] = item
         await this.saveObjects(database)
         
         return database[objIndex]

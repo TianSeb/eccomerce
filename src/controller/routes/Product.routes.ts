@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from "express"
-import Producto from "../../model/Producto"
 import ProductService from "../../services/Product.service"
 
 //-- Init Constants --//
