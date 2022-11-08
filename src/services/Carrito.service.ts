@@ -35,11 +35,17 @@ export default class CarritoService implements ICarritoService {
     }
     
     async saveProductInCart(idCart:string,data:any): Promise<void> {
-        let cart : Array<any> = await this.serviceRepository.getById(idCart)
+        let cart : Carrito = await this.serviceRepository.getById(idCart)
+        console.log(cart);
+        let array = cart.getProductos
+        console.log(array);
+        
+        
         if(!cart) throw Error
+
         let {nombre, descripcion, codigo, foto, precio, stock} = data
         let newProduct = new Producto(nombre, descripcion, codigo, foto, parseInt(precio), parseInt(stock))
-        cart.push(newProduct)
+        cart.getProductos.push(newProduct)
 
         await this.serviceRepository.save(cart)
     }

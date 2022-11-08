@@ -17,4 +17,8 @@ export default class Carrito {
     get getProductos() : Array<Producto> {
         return this.productos
     }
+
+    addProduct() : boolean {
+        return true
+    }
 }

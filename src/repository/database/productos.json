@@ -1,0 +1,32 @@
+[
+	{
+		"nombre": "mayonesa",
+		"descripcion": "d",
+		"codigo": "a3a",
+		"foto": "sdf",
+		"precio": 88,
+		"stock": 2,
+		"id": "96a57ced-0275-47b8-99e6-e4619533168d",
+		"timestamp": 1667861492258
+	},
+	{
+		"nombre": "mostaneza",
+		"descripcion": "d",
+		"codigo": "a4a",
+		"foto": "sdf",
+		"precio": 22,
+		"stock": 1,
+		"id": "3d820f81-2364-4b1b-b396-e9b675f10eb5",
+		"timestamp": 1667861492275
+	},
+	{
+		"nombre": "kechunesa",
+		"descripcion": "d",
+		"codigo": "a5a",
+		"foto": "sdf",
+		"precio": 44,
+		"stock": 4,
+		"id": "0f5a138e-a6e2-4d22-bdef-88749526b9d8",
+		"timestamp": 1667861492304
+	}
+]
