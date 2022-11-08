@@ -27,38 +27,43 @@ export default class CarritoService implements ICarritoService {
        return await this.serviceRepository.getAll()
     }
     
-    async getCartProductos(idCart:string): Promise<Array<Producto>|any> {
-        let carrito:Carrito = await this.serviceRepository.getById(idCart)
-        if(!carrito) throw new Error("El carrito no existe")
-
+    async getCartProductos(idCart:string): Promise<Array<Producto>> {
+        const carrito = await this.getCartFromDb(idCart)
         return carrito.getProductos
     }
     
-    async saveProductInCart(idCart:string,data:any): Promise<void> {
-        let cart : Carrito = await this.serviceRepository.getById(idCart)
-        console.log(cart);
-        let array = cart.getProductos
-        console.log(array);
+    async saveProductInCart(idCart:string,data:any): Promise<string> {
+        const carrito = await this.getCartFromDb(idCart)
         
-        
-        if(!cart) throw Error
+        const {nombre, descripcion, codigo, foto, precio, stock} = data
+        const newProduct = new Producto(nombre, descripcion, codigo, foto, parseInt(precio), parseInt(stock))
 
-        let {nombre, descripcion, codigo, foto, precio, stock} = data
-        let newProduct = new Producto(nombre, descripcion, codigo, foto, parseInt(precio), parseInt(stock))
-        cart.getProductos.push(newProduct)
+        carrito.getProductos.push(newProduct)
+        const prodSaved : any = await this.serviceRepository.edit(idCart,carrito)
 
-        await this.serviceRepository.save(cart)
+        return `Se guardo el producto con id:${newProduct.getId} en el carrito con id:${prodSaved.getId}`
     }
     
-    async deleteProductInCart(idCart:string,idProd:string): Promise<void> {
-        let cart : Array<any> = await this.serviceRepository.getById(idCart)
-        if(!cart) throw new Error("No existe el carrito")
+    async deleteProductInCart(idCart:string,idProd:string): Promise<string> {
+        const carrito = await this.getCartFromDb(idCart);
 
-        let prodFound = cart.findIndex(prod => prod.id === idProd)
+        let prodFound = carrito.getProductos.findIndex((prod:any) => prod.id === idProd)
         if (prodFound < 0) throw new Error("No existe el producto")
 
-        cart.splice(prodFound,1)
+        carrito.getProductos.splice(prodFound,1)
 
-        await this.serviceRepository.save(cart)
+        const prodSaved : any = await this.serviceRepository.edit(idCart,carrito)
+
+        return `Se borro el producto con id:${idProd} del carrito con id:${carrito.getId}`
+    }
+
+    private async getCartFromDb(idCart: string) {
+        const newCart = new Carrito();
+        const cartData: JSON = await this.serviceRepository.getById(idCart);
+        if (!cartData)
+            throw Error("Error while retrieving Carritos Database");
+
+        Object.assign(newCart, cartData);
+        return newCart;
     }
 }

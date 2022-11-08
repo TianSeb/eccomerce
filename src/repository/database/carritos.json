@@ -1,0 +1,43 @@
+[
+	{
+		"productos": [
+			{
+				"nombre": "productito",
+				"descripcion": "en el carrito",
+				"codigo": "aeiou",
+				"foto": "sdf",
+				"precio": 100,
+				"stock": 1,
+				"id": "4d44c334-1745-453a-86ff-7b80b1afa9fa",
+				"timestamp": 1667888014439
+			},
+			{
+				"nombre": "productito",
+				"descripcion": "en el carrito",
+				"codigo": "aeiou",
+				"foto": "sdf",
+				"precio": 100,
+				"stock": 1,
+				"id": "0ed86f03-6380-483e-ad1f-a97167386c3a",
+				"timestamp": 1667888193366
+			},
+			{
+				"nombre": "productito",
+				"descripcion": "en el carrito",
+				"codigo": "aeiou",
+				"foto": "sdf",
+				"precio": 100,
+				"stock": 1,
+				"id": "50fd5209-8b09-4634-960b-fb668961119f",
+				"timestamp": "2022/11/8 03:23:31"
+			}
+		],
+		"id": "37abdcca-0f17-446a-9c8b-16ed0c126a56",
+		"timestamp": 1667884270165
+	},
+	{
+		"productos": [],
+		"id": "b9b952eb-bf61-43a4-b660-611f934741e3",
+		"timestamp": "2022/11/8 03:23:24"
+	}
+]

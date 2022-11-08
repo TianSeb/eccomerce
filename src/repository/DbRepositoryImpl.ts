@@ -40,7 +40,7 @@ export default class DbRepositoryImpl implements IDbRepository {
         let database = await this.getDatabase()  
         let objIndex = await this.findObjectIndex(id)
         
-        if(!objIndex) throw Error
+        if(objIndex < 0) throw Error
         
         database[objIndex] = item
         await this.saveObjects(database)

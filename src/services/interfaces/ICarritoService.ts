@@ -7,6 +7,6 @@ export default interface ICarritoService {
     deleteCartById(idCart:string): void
     getAllCarts(): Promise<Array<any>>
     getCartProductos(idCart:string): Promise<Array<Producto>>
-    saveProductInCart(idCart:string,item:JSON): Promise<void>
-    deleteProductInCart(idCart:string,idProd:string): Promise<void>
+    saveProductInCart(idCart:string,item:JSON): Promise<string>
+    deleteProductInCart(idCart:string,idProd:string): Promise<string>
 }
