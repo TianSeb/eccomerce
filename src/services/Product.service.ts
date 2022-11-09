@@ -50,10 +50,10 @@ export default class ProductService implements IProductservice {
     }
 
     async deleteById(id:string): Promise<void> {
-        await this.productRepository.deleteById(id)
+       return await this.productRepository.deleteById(id)
     }
 
     async deleteAll(): Promise<void> {
-        await this.productRepository.deleteAll()
+        return await this.productRepository.deleteAll()
     }
 } 

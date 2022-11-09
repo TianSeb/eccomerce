@@ -20,7 +20,7 @@ export default class CarritoService implements ICarritoService {
     }
 
     async deleteCartById(idCart:string): Promise<void> {
-        await this.serviceRepository.deleteById(idCart)
+        return await this.serviceRepository.deleteById(idCart)
     }
 
     async getAllCarts(): Promise<Array<any>> {

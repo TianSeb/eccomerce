@@ -1,5 +1,4 @@
 import express from 'express'
-import { Request, Response, NextFunction } from 'express'
 import {controller} from '../controller/Controller'
 
 const app = express()

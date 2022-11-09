@@ -30,14 +30,19 @@
 				"stock": 1,
 				"id": "50fd5209-8b09-4634-960b-fb668961119f",
 				"timestamp": "2022/11/8 03:23:31"
+			},
+			{
+				"nombre": "productaso",
+				"descripcion": "en el carrito",
+				"codigo": "aeiou",
+				"foto": "sdf",
+				"precio": 100,
+				"stock": 1,
+				"id": "1255933b-a792-4383-9f83-8408e145b090",
+				"timestamp": "2022/11/9 03:05:17"
 			}
 		],
 		"id": "37abdcca-0f17-446a-9c8b-16ed0c126a56",
 		"timestamp": 1667884270165
-	},
-	{
-		"productos": [],
-		"id": "b9b952eb-bf61-43a4-b660-611f934741e3",
-		"timestamp": "2022/11/8 03:23:24"
 	}
 ]

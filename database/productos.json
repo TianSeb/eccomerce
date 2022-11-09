@@ -6,8 +6,8 @@
 		"foto": "sdf",
 		"precio": 88,
 		"stock": 2,
-		"id": "96a57ced-0275-47b8-99e6-e4619533168d",
-		"timestamp": 1667861492258
+		"id": "c1f58a4b-64aa-4f83-8d96-3afa8034e4fa",
+		"timestamp": "2022/11/9 11:50:29"
 	},
 	{
 		"nombre": "mostaneza",
@@ -16,8 +16,8 @@
 		"foto": "sdf",
 		"precio": 22,
 		"stock": 1,
-		"id": "3d820f81-2364-4b1b-b396-e9b675f10eb5",
-		"timestamp": 1667861492275
+		"id": "30ec5049-a840-4f36-8cbb-efad255fba2c",
+		"timestamp": "2022/11/9 11:50:29"
 	},
 	{
 		"nombre": "kechunesa",
@@ -26,7 +26,7 @@
 		"foto": "sdf",
 		"precio": 44,
 		"stock": 4,
-		"id": "0f5a138e-a6e2-4d22-bdef-88749526b9d8",
-		"timestamp": 1667861492304
+		"id": "8965c15f-ba14-4313-9573-93d94f3bd1a4",
+		"timestamp": "2022/11/9 11:50:29"
 	}
 ]

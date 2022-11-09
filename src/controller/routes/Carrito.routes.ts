@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express"
 import CarritoService from "../../services/Carrito.service"
+import { productValidation } from "../../utils/Utils"
 
 //-- Init Constants --//
 const asyncHandler = require('express-async-handler')
@@ -12,7 +13,7 @@ carritoRoute.post('/',asyncHandler(async(req:Request,res:Response,next:NextFunct
     })
 }))
 
-carritoRoute.post('/:id/productos',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
+carritoRoute.post('/:id/productos',productValidation,asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
     return res.status(201).json({
         data: await carritoService.saveProductInCart(req.params.id,req.body)
     })

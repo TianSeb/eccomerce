@@ -1,7 +1,7 @@
-import { Router } from "express"
+import Router from 'express'
 import productsRoute from './routes/Product.routes'
 import carritoRoute from "./routes/Carrito.routes"
-import errorHandling from "../middlewares/ErrorHandling"
+import { errorHandling } from "../middlewares/ErrorHandling"
 
 const controller = Router()
 

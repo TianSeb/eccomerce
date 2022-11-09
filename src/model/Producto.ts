@@ -7,7 +7,7 @@ export default class Producto {
     constructor(private nombre:string, private descripcion:string, private codigo:string, 
                     private foto:string, private precio:number, private stock:number) {
         this.id = uuidv4()
-        this.timestamp = this.timestamp = moment().format('YYYY/MM/D hh:mm:ss')
+        this.timestamp = moment().format('YYYY/MM/D hh:mm:ss')
     }
 
     get getId() {
