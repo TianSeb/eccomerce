@@ -3,10 +3,10 @@ const fs = require('fs');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-    entry: './src/app.ts',
+    entry: './src/App.ts',
     mode: 'production',
     output: {
-        filename: 'app.js',
+        filename: 'App.js',
         path: path.resolve(__dirname, 'build/build'),
     },
     resolve: {
