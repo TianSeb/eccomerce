@@ -2,6 +2,9 @@
   "name": "eccomerce",
   "version": "1.0.0",
   "description": "eccomerce backend node js",
+  "engines": {
+    "node": "18.x"
+  },
   "main": "app.ts ",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
