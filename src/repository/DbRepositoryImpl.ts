@@ -1,22 +1,15 @@
 import IDbRepository from './interfaces/IDbRepository'
-import * as fs from 'fs/promises'
+import knex, { Knex } from "knex";
+import Config from '../config/Config';
 
 export default class DbRepositoryImpl implements IDbRepository {
 
-    private path: string = ''
+    db:Knex
     createError = require('http-errors')
-    fs = require('fs')
-    pathM = require('path')
-    dbPath = this.pathM.resolve(__dirname, '../../database')
 
-
-    constructor(fileName:string) {
+    constructor(options:Object) {
         console.log('Initializing DB')
-        this.path = `${this.dbPath}/${fileName}.json`
-      
-        if(!this.fs.existsSync(this.path)){
-            this.fs.writeFileSync(this.path,'[]')
-        }
+        this.db = knex(Config.db)
     }
 
     async getAll(): Promise<Array<Object>> {  
@@ -94,16 +87,7 @@ export default class DbRepositoryImpl implements IDbRepository {
 
     async getDatabase() {
         try {
-            let database = await fs.readFile(this.path,'utf-8')
-            let container = []
-
-            if(database === "") {
-                database = await this.fs.promises.writeFile(this.path,'[]')
-            } else {
-                container = JSON.parse(database)
-            }
-            return container
-
+            
         } catch (error) {
             return this.createError(500, 'Error Base de Datos')
         }
@@ -111,7 +95,7 @@ export default class DbRepositoryImpl implements IDbRepository {
 
     async saveObjects(data: Array<Object>) : Promise<boolean> {
         try {
-            await this.fs.promises.writeFile(this.path, JSON.stringify(data,null,'\t'))
+            
             return true
         } catch (error) {
             throw this.createError(500, 'Error mientras se intentaba guardar los objetos')
