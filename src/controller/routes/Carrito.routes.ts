@@ -8,38 +8,39 @@ const carritoRoute = Router()
 const carritoService = new CarritoService()
 
 carritoRoute.post('/',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
-    return res.status(201).json({
+    return res.json({
         data: await carritoService.createCart()
     })
+
 }))
 
 carritoRoute.post('/:id/productos',productValidation,asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
-    return res.status(201).json({
+    return res.json({
         data: await carritoService.saveProductInCart(req.params.id,req.body)
     })
 }))
 
 carritoRoute.delete('/:id',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
-    return res.status(200).json({
+    return res.json({
         data: await carritoService.deleteCartById(req.params.id)
     })
 }))
 
 carritoRoute.delete('/:id/productos/:id_prod',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
-    return res.status(200).json({
+    return res.json({
         data: await carritoService.deleteProductInCart(req.params.id,req.params.id_prod)
     })
 }))
 
 carritoRoute.get('/:id/productos',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
-    return res.status(200).json({
+    return res.json({
         data: await carritoService.getCartProductos(req.params.id)
     })
 }))
 
-carritoRoute.get('/',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
-    return res.status(200).json({
-        data: await carritoService.getAllCarts()
+carritoRoute.get('/:id',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
+    return res.json({
+        data: await carritoService.getCart(req.params.id)
     })
 }))
 

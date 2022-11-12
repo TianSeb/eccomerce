@@ -1,59 +1,45 @@
-import DbRepositoryImpl from "../repository/DbRepositoryImpl";
-import IDbRepository from "../repository/interfaces/IDbRepository";
+import { dbConnection } from "../repository/Database";
 import IProductservice from "./interfaces/IProductService";
 import Producto from "../model/Producto";
-
 export default class ProductService implements IProductservice {
     
-    private productRepository:IDbRepository
-
+    protected TABLE_NAME = 'productos'
+    connection:any 
     constructor(){
-        this.productRepository = new DbRepositoryImpl('productos')
-     }
-
-    async getAll(): Promise<Array<Object>> {
-        return await this.productRepository.getAll()
+        this.connection = dbConnection.connection
     }
 
-    async getById<Producto>(id:string): Promise<Producto> {
-        return await this.productRepository.getById(id)
+    async get<Producto>(id:string): Promise<Array<Object> | Producto | any> {
+        return id ? await this.connection(this.TABLE_NAME).where('id',id) : await this.connection(this.TABLE_NAME)
     }
 
-    async save(data:any): Promise<string> {
+    async createProduct(data:any): Promise<string|any> {
         let {nombre, descripcion, codigo, foto, precio, stock} = data
-
         let newProduct = new Producto(nombre, descripcion, codigo, foto, parseInt(precio), parseInt(stock))
-        let checkSave = await this.productRepository.save(newProduct)
 
-        return (checkSave) ? `El producto con id ${newProduct.getId} ah sido creado` : "Error"
+        return await this.connection(this.TABLE_NAME).insert(newProduct)
     }
 
     async updateProduct(id:string, data:any): Promise<Object> {
-        let item : any = await this.productRepository.getById(id)
-        if(!item) {
-           throw new Error('producto no encontrado')
-        }
+        // let item : any = await this.productRepository.get(this.TABLE_NAME,id)
+        // if(!item) {
+        //    throw new Error('producto no encontrado')
+        // }
 
         
-        let {nombre, descripcion, codigo, foto, precio, stock} = data
+        // let {nombre, descripcion, codigo, foto, precio, stock} = data
 
-        item.nombre = nombre || item.nombre
-        item.descripcion = descripcion || item.descripcion
-        item.codigo = codigo || item.codigo
-        item.foto = foto || item.foto
-        item.precio = parseInt(precio) || item.precio
-        item.stock = parseInt(stock) || item.stock
-        item.id = id
-
-
-        return await this.productRepository.edit(id,item)
+        // item.nombre = nombre || item.nombre
+        // item.descripcion = descripcion || item.descripcion
+        // item.codigo = codigo || item.codigo
+        // item.foto = foto || item.foto
+        // item.precio = parseInt(precio) || item.precio
+        // item.stock = parseInt(stock) || item.stock
+        // item.id = id
+        return await this.connection(this.TABLE_NAME).where('id',id).update(data)
     }
 
     async deleteById(id:string): Promise<void> {
-       return await this.productRepository.deleteById(id)
-    }
-
-    async deleteAll(): Promise<void> {
-        return await this.productRepository.deleteAll()
+       return await this.connection(this.TABLE_NAME).where('id',id).del()
     }
 } 
