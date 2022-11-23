@@ -7,22 +7,16 @@ const asyncHandler = require('express-async-handler')
 const productsRoute = Router()
 const productService = new ProductService()
 
-productsRoute.get('/',asyncHandler(async (req:Request,res:Response,next:NextFunction) => {
-    return res.json({
-        data: await productService.getAll()
-    })
-}))
-
 productsRoute.get('/:id',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
         return res.json({
-            data: await productService.getById(req.params.id)   
+            data: await productService.get(req.params.id)   
         })
 }))
 
 productsRoute.post('/',productValidation,auth,asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
         let data = req.body
         return res.status(201).json({
-            data: await productService.save(data)
+            data: await productService.createProduct(data)
         })
 }))
 
@@ -36,12 +30,6 @@ productsRoute.put('/:id',auth,asyncHandler(async(req:Request,res:Response,next:N
 productsRoute.delete('/:id',auth,asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
     return res.json({
         msg: await productService.deleteById(req.params.id)
-    })
-}))
-
-productsRoute.delete('/',auth,asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
-    return res.json({
-        msg: await productService.deleteAll()
     })
 }))
 
