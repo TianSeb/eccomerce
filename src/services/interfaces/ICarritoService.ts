@@ -1,5 +1,5 @@
-import Carrito from "../../model/Carrito"
-import Producto from "../../model/Producto"
+import Carrito from "../../model/carrito/Carrito"
+import Producto from "../../model/producto/Producto"
 
 export default interface ICarritoService {
 

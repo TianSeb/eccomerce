@@ -1,5 +1,5 @@
 import knex from "knex"
-import dbConfig from '../config/knexfile'
+import dbConfig from '../../config/knexfile'
 
 const PRODUCTOS_TABLE = 'productos'
 const CART_TABLE = 'cart'

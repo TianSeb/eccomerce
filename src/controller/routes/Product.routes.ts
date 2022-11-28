@@ -7,7 +7,7 @@ const asyncHandler = require('express-async-handler')
 const productsRoute = Router()
 const productService = new ProductService()
 
-productsRoute.get('/:id',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
+productsRoute.get('/:id?',asyncHandler(async(req:Request,res:Response,next:NextFunction) => {
         return res.json({
             data: await productService.get(req.params.id)   
         })

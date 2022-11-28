@@ -1,44 +1,30 @@
-import { prodDatabase } from "../repository/DbRepsitory";
+//import { prodDatabase } from "../repository/RelationalRepository";
+import { productosMongoDAO } from "../model/producto/DAO/ProductsMongoDao";
 import IProductservice from "./interfaces/IProductService";
-import Producto from "../model/Producto";
+import Producto from "../model/producto/Producto";
 export default class ProductService implements IProductservice {
     
     connection:any 
     constructor(){
-        this.connection = prodDatabase
+        this.connection = productosMongoDAO
     }
 
     async get<Producto>(id:string): Promise<Array<Object> | Producto | any> {
-        return id ? await this.connection.where('id',id) : await this.connection
+        return await this.connection.get(id)
     }
 
     async createProduct(data:any): Promise<string|any> {
         let {nombre, descripcion, codigo, foto, precio, stock} = data
         let newProduct = new Producto(nombre, descripcion, codigo, foto, parseInt(precio), parseInt(stock))
 
-        return await this.connection.insert(newProduct)
+        return await this.connection.create(newProduct)
     }
 
     async updateProduct(id:string, data:any): Promise<Object> {
-        // let item : any = await this.productRepository.get(this.TABLE_NAME,id)
-        // if(!item) {
-        //    throw new Error('producto no encontrado')
-        // }
-
-        
-        // let {nombre, descripcion, codigo, foto, precio, stock} = data
-
-        // item.nombre = nombre || item.nombre
-        // item.descripcion = descripcion || item.descripcion
-        // item.codigo = codigo || item.codigo
-        // item.foto = foto || item.foto
-        // item.precio = parseInt(precio) || item.precio
-        // item.stock = parseInt(stock) || item.stock
-        // item.id = id
-        return await this.connection.where('id',id).update(data)
+        return await this.connection.update(id,data)
     }
 
     async deleteById(id:string): Promise<void> {
-       return await this.connection.where('id',id).del()
+       return await this.connection.delete(id)
     }
 } 

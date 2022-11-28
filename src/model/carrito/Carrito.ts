@@ -1,14 +1,10 @@
-import Producto from "./Producto"
-import { v4 as uuidv4 } from 'uuid'
-import moment from "moment"
+import Producto from "../producto/Producto"
 
 export default class Carrito {
     private id : string
-    private timestamp : string
-    
+
     constructor(private productos: Array<Producto> = new Array()){
-        this.id = uuidv4()
-        this.timestamp = moment().format('YYYY/MM/D hh:mm:ss')
+        this.id = ""
     }
 
     get getId() : string {

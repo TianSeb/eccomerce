@@ -1,4 +1,4 @@
-import Producto from "../../model/Producto"
+import Producto from "../../model/producto/Producto"
 export default interface IProductservice {
     get(id:string): Promise<Array<Object> | Producto>
     createProduct(item:Object): Promise<string>
