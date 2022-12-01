@@ -1,15 +1,10 @@
 import mongoose from "mongoose"
-import Config from "../config/Config"
-
 export class MongoRepository {
-    private srv:string
     private collection:any
     
     constructor(collection:string, schema:any) {
-        this.srv = Config.db
-        mongoose.connect(this.srv)
         this.collection = mongoose.model(collection, schema)
-        console.log(`INITIALIZING ${this.srv} DB`)
+        console.log(`INITIALIZING  DB`)
     }
 
     async get(id?:string){

@@ -1,17 +1,23 @@
 import Producto from "../producto/Producto"
 
 export default class Carrito {
-    private id : string
-
-    constructor(private productos: Array<Producto> = new Array()){
-        this.id = ""
+    constructor(private productos : Array<any> = [], 
+        private id : string = "" ){
     }
 
     get getId() : string {
         return this.id
     }
 
-    get getProductos() {
+    get getProductos() : Array<Producto> {
         return this.productos
+    }
+
+    set setProductos(productos:Array<any>) {
+        this.productos = productos
+    }
+
+    pushProducto(producto:any) : void {
+        this.productos.push(producto)
     }
 }

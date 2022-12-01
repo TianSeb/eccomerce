@@ -1,57 +1,56 @@
-//import { cartDatabase } from "../repository/RelationalRepository";
-import { cartMongoDAO } from "../model/carrito/DAO/CartMongoDAO";
+import { databaseInit } from "../config/DBConfig";
 import ICarritoService from "./interfaces/ICarritoService";
 import Carrito from "../model/carrito/Carrito";
 import Producto from "../model/producto/Producto";
+class CarritoService implements ICarritoService {
 
-export default class CarritoService implements ICarritoService {
-
-    connection:any 
+    carritoRepository:any 
     constructor(){
-        this.connection = cartMongoDAO
-    }
-
-    async createCart(): Promise<any> {
-        return await this.connection.create(new Carrito())
-    }
-
-    async deleteCartById(idCart:string): Promise<void> {
-        return await this.connection.delete(idCart)
+        this.carritoRepository = databaseInit?.carritoDAO
     }
 
     async getCart(idCart:string): Promise<Array<any>> {
-       if(idCart) return this.connection.get(idCart)
+        return await this.carritoRepository.get(idCart)
+    }
 
-       return await this.connection
+    async createCart(): Promise<any> {
+        return await this.carritoRepository.create(new Carrito())
+    }
+
+    async deleteCartById(idCart:string): Promise<void> {
+        return await this.carritoRepository.delete(idCart)
     }
     
     async getCartProductos(idCart:string): Promise<Array<Producto>> {
-        const carrito : Carrito = await this.connection.get(idCart)
-        return carrito.getProductos
+        const carrito = await this.carritoRepository.get(idCart)
+        return carrito.productos
     }
     
-    async saveProductInCart(idCart:string,data:any): Promise<string> {
-        const carrito = await this.connection.get(idCart)
+    async saveProductInCart(idCart:string,data:any): Promise<string|any> {
+        const carritoObj = await this.carritoRepository.get(idCart)
         
-        const {nombre, descripcion, codigo, foto, precio, stock} = data
-        const newProduct = new Producto(nombre, descripcion, codigo, foto, parseInt(precio), parseInt(stock))
+        const {_id,nombre, descripcion, codigo, foto, precio, stock} = data
+        const newProduct : Producto = new Producto(nombre, descripcion, codigo, foto, parseInt(precio), parseInt(stock))
+        newProduct.setId = _id
 
-        carrito.getProductos.push(newProduct)
-        const prodSaved : any = await this.connection.update(idCart,carrito)
+        carritoObj.productos.push(newProduct)
+        const cartSaved = await this.carritoRepository.update(idCart,carritoObj)
 
-        return `Se guardo el producto con id:${newProduct.getId} en el carrito con id:${prodSaved.getId}`
+        return `Se guardo el producto con id:${newProduct.getId} en el carrito con id:${cartSaved.id}`
     }
     
     async deleteProductInCart(idCart:string,idProd:string): Promise<string> {
-        const carrito = await this.connection.get(idCart)
+        const carrito = await this.carritoRepository.get(idCart)
 
-        let prodFound = carrito.getProductos.findIndex((prod:any) => prod.id === idProd)
+        let prodFound = carrito.productos.findIndex((prod:any) => prod.id === idProd)
         if (prodFound < 0) throw new Error("No existe el producto")
 
-        carrito.getProductos.splice(prodFound,1)
+        carrito.productos.splice(prodFound,1)
 
-        const prodSaved : any = await this.connection.update(idCart,carrito)
+        const prodSaved : any = await this.carritoRepository.update(idCart,carrito)
 
-        return `Se borro el producto con id:${idProd} del carrito con id:${carrito.getId}`
+        return `Se borro el producto con id:${idProd} del carrito con id:${carrito._id}`
     }
 }
+
+export const carritoService = new CarritoService()

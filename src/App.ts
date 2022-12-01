@@ -1,10 +1,10 @@
 import { Server } from "./server/Server"
 import config from "./config/Config"
-import initDb from "./repository/initDB/RelationalInit"
-import mongoDbInit from "./repository/initDB/MongoInit"
+import { databaseInit } from "./config/DBConfig"
 
 const init = async () => {
-    await mongoDbInit()
+
+    await databaseInit?.dbInit()
     Server.listen(config.port, () => 
     console.log(`server listening on port ${config.port}`))      
 }

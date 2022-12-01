@@ -9,4 +9,8 @@ export default class Producto {
     get getId() {
         return this.id
     }
+
+    set setId(id:any) {
+        this.id = id
+    }
 }
