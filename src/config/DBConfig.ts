@@ -45,4 +45,4 @@ class ModelFactory {
       }
 }
 
-export const databaseInit = ModelFactory.get(TipoPersistencia.MongoAtlas)
+export const databaseInit = ModelFactory.get(TipoPersistencia.Firebase)
